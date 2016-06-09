@@ -1,3 +1,5 @@
+package exam;
+
 
 
 import java.text.*;
@@ -97,11 +99,10 @@ class ReportStage
         Button btnSave = new Button("Save");
         btnSave.setOnAction(e ->
         {
-            report.saveReport(); 
-            stage.close();
+            report.saveReport(stage); 
         });
-        Button btnCancel = new Button("Cancel");
-        btnCancel.setOnAction(e ->
+        Button btnClose = new Button("Close");
+        btnClose.setOnAction(e ->
         {
            stage.close(); 
         });
@@ -109,7 +110,7 @@ class ReportStage
         HBox hBox = new HBox(10);
         hBox.setAlignment(Pos.CENTER);
         hBox.setPadding(new Insets(10, 0, 10, 0));        
-        hBox.getChildren().addAll(btnSave, btnCancel);  
+        hBox.getChildren().addAll(btnSave, btnClose);  
         return hBox;
     }
     

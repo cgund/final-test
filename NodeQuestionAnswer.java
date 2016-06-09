@@ -1,3 +1,5 @@
+package exam;
+
 /*
 Craig Gundacker
 Exam 3

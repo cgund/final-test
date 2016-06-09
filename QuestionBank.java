@@ -1,7 +1,13 @@
+package exam;
+
 
 import java.io.*;
-import java.util.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.util.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 /*
 Encapsulates category, question, and correct answer
 */
@@ -54,11 +60,11 @@ public class QuestionBank
     {
         Map<String,List<NodeQuestionAnswer>> map = new HashMap<>();
 
-        String path = "questionBank.txt";
-        File file = new File(path);
+        String resource = "resources/questionBank.txt";
+        InputStream inStream = this.getClass().getResourceAsStream(resource);
         try 
         {
-            Scanner scanner = new Scanner(file);
+            Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(inStream, StandardCharsets.UTF_8 )));
             while (scanner.hasNext())
             {
                 String line = scanner.nextLine();
@@ -84,9 +90,11 @@ public class QuestionBank
                 }
             }
         }
-        catch(FileNotFoundException ex)
+        catch(NullPointerException ex)
         {
-            System.out.println("File Not Found");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText(ex.getMessage());               
         }
         
         return map;

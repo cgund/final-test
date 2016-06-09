@@ -1,3 +1,5 @@
+package exam;
+
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -5,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 /*
 Class for collecting statistics on test results.  Uses hashmap to store scores
 by subject.  Contains methods for displaying and saving reports
@@ -85,21 +90,41 @@ public class Report
     /*
     Saves report to file
     */
-    public void saveReport()
+    public void saveReport(Stage stage)
+    {    
+        String dateTime = stampDateTime();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName(userName + "_" + dateTime + ".txt");
+        fileChooser.setTitle("Save Exam");
+        FileChooser.ExtensionFilter extFilter = new ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(stage);
+        if (file !=  null)
+        {
+            saveFile(file, dateTime);
+        }
+    }
+
+    /*
+    Timestamps report
+    */
+    private String stampDateTime()
     {
-        /*
-        Timestamps report
-        */
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu H.m.s");
         LocalDateTime now = LocalDateTime.now();
         String dateTime = now.format(formatter);
-        System.out.println(dateTime);
-        String path = userName + "_" + dateTime + ".txt";
-        
-        File file = new File(path);
+        return dateTime;        
+    }
+    
+    private void saveFile(File file, String dateTime)
+    {      
         try
         {
             PrintWriter output = new PrintWriter(file);
+            output.println("STUDENT NAME: " + userName);
+            output.println("DATE/TIME: " + dateTime);
+            output.println();
             int questionNum = 1;
             for (NodeQuestionAnswer qaSet: lstQA)
             {
@@ -111,8 +136,8 @@ public class Report
                 output.println(questionNum+"::"+subject+"::"+studentInput+"::"+correctAnswer+"::"+points);
                 questionNum++;
             }
-            
-            output.println("\nFinal Score: " + correct + "/" + total);
+            output.println();
+            output.println("Final Score: " + correct + "/" + total);
             output.close();
             
             notifySave();
@@ -122,9 +147,9 @@ public class Report
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("File not saved");
+            alert.setContentText(ex.getMessage());
             alert.show();
-        }
+        }        
     }
     
     /*
