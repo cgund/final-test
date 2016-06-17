@@ -48,11 +48,11 @@ class ReportStage
     private Node createHeaderPane()
     {    
         Label lblHeader = new Label("Results by Subject Area");
-        HBox hBoxHeader = new HBox(10);
-        hBoxHeader.setAlignment(Pos.CENTER);
-        hBoxHeader.setPadding(new Insets(25, 10, 10, 10));
-        hBoxHeader.getChildren().add(lblHeader);
-        return lblHeader;        
+        HBox hb = new HBox(10);
+        hb.setAlignment(Pos.CENTER);
+        hb.setPadding(new Insets(25, 10, 10, 10));
+        hb.getChildren().add(lblHeader);
+        return hb;        
     }
     
     private Node createGridPane()
