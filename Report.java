@@ -17,6 +17,7 @@ by subject.  Contains methods for displaying and saving reports
 public class Report 
 {
     private String userName;
+    private String dateTime;
     
     private int total = 0;
     private int correct = 0;
@@ -92,7 +93,6 @@ public class Report
     */
     public void saveReport(Stage stage)
     {    
-        String dateTime = stampDateTime();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName(userName + "_" + dateTime + ".txt");
         fileChooser.setTitle("Save Exam");
@@ -109,11 +109,11 @@ public class Report
     /*
     Timestamps report
     */
-    private String stampDateTime()
+    public String stampDateTime()
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu H.m.s");
         LocalDateTime now = LocalDateTime.now();
-        String dateTime = now.format(formatter);
+        dateTime = now.format(formatter);
         return dateTime;        
     }
     

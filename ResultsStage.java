@@ -40,6 +40,7 @@ public class ResultsStage
         root.setBottom(createButtonPane(report));
         
         stage.setScene(scene);
+        stage.setTitle("Final Exam Results");
     }
     
     public void show()
@@ -107,10 +108,10 @@ public class ResultsStage
     
     private Node createButtonPane(Report report)
     {
-        Button btnSave = new Button("Display Report");
+        Button btnDisplay = new Button("Display Report");
         Button btnRedo = new Button("Redo Test");
         
-        btnSave.setOnAction(e ->
+        btnDisplay.setOnAction(e ->
         {
             report.displayReport();
         });
@@ -124,7 +125,7 @@ public class ResultsStage
         HBox hBox = new HBox(10);
         hBox.setAlignment(Pos.CENTER);
         hBox.setPadding(new Insets(10, 0, 10, 0));
-        hBox.getChildren().addAll(btnSave, btnRedo);       
+        hBox.getChildren().addAll(btnDisplay, btnRedo);       
         return hBox;
     }
 }

@@ -165,6 +165,7 @@ public class TestStage extends Application
             else
             {
                 report.setName(userName);
+                report.stampDateTime();
                 ResultsStage results = new ResultsStage(lstGraded, report); //Passes references to ResultsStage
                 results.show();
                 primaryStage.close();                
